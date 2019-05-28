@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <FrameLayout
+        android:id="@+id/outgoingMsgLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/rounded_corner_teal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|right">
+            <ImageView
+                android:id="@+id/outgoingMsgStatus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:paddingBottom="3dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/msg_reached_server_icon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/outgoingMsgTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Today at 11:45 AM"/>
+            </RelativeLayout>
+
+
+            <com.vanniktech.emoji.EmojiTextView
+                android:id="@+id/outgoingMsgText"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:paddingRight="6dp"
+                android:autoLink="web"
+                app:emojiSize="80px"
+                android:textColor="@color/black"
+                android:text="Test"
+                style="@style/chat_text_message_style"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</RelativeLayout>

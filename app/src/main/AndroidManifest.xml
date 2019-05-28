@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.nandandesai.android_im_template">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="io.github.nandandesai.android_im_template.AndroidIMTemplate"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <receiver
+            android:name="io.github.nandandesai.android_im_template.services.PeerLinkRestartReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name="io.github.nandandesai.android_im_template.services.PeerLinkMainService"
+            android:enabled="true" />
+
+        <activity android:name="io.github.nandandesai.android_im_template.ProfileViewActivity" />
+        <activity android:name="io.github.nandandesai.android_im_template.CreateContactActivity" />
+        <activity
+            android:name="io.github.nandandesai.android_im_template.MainActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="io.github.nandandesai.android_im_template.ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+
+</manifest>

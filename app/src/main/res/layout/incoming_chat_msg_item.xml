@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp">
+
+    <FrameLayout
+        android:id="@+id/incomingMsgLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="60dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/rounded_corner_light_blue">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/incomingMsgAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nandan Desai"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/incomingMsgTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Today at 11:45 AM"/>
+        </RelativeLayout>
+
+            <com.vanniktech.emoji.EmojiTextView
+                android:id="@+id/incomingMsgText"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:paddingRight="6dp"
+                android:autoLink="web"
+                app:emojiSize="80px"
+                android:textColor="@color/black"
+                android:text="Hello"
+                style="@style/chat_text_message_style"
+                />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>
