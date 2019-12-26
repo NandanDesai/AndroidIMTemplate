@@ -1,7 +1,7 @@
 package io.github.nandandesai.android_im_template.repositories;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 

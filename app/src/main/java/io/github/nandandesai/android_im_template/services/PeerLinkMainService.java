@@ -1,10 +1,10 @@
 package io.github.nandandesai.android_im_template.services;
 
-import android.arch.lifecycle.LifecycleService;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.LifecycleService;
+import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 

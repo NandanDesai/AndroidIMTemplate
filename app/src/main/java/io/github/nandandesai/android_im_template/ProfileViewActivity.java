@@ -1,6 +1,6 @@
 package io.github.nandandesai.android_im_template;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 
