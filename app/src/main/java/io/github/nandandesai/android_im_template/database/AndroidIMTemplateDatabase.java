@@ -13,6 +13,12 @@ import android.util.Log;
 import com.commonsware.cwac.saferoom.SafeHelperFactory;
 
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+
 import io.github.nandandesai.android_im_template.models.ChatSession;
 import io.github.nandandesai.android_im_template.models.ChatMessage;
 import io.github.nandandesai.android_im_template.models.Contact;
@@ -29,7 +35,21 @@ public abstract class AndroidIMTemplateDatabase extends RoomDatabase {
     public static synchronized AndroidIMTemplateDatabase getInstance(Context context){
 
         if(instance==null) {
+            try {
+                KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+
+                SecureRandom secureRandom = new SecureRandom();
+                int keyBitSize = 256;
+                keyGenerator.init(keyBitSize, secureRandom);
+
+                SecretKey secretKey = keyGenerator.generateKey();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+
+
             String passPhrase="templateSecret";
+
             SafeHelperFactory factory = new SafeHelperFactory(passPhrase.toCharArray());
             instance=Room.databaseBuilder(context, AndroidIMTemplateDatabase.class, DB_NAME)
                     .openHelperFactory(factory)
