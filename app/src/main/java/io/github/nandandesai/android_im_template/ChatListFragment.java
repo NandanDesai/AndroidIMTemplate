@@ -96,17 +96,6 @@ public class ChatListFragment extends Fragment {
         return view;
     }
 
-/*
-    private void addNewChatItem(){
-        chatTitles.add(0,"Alice");
-        profilePics.add(0,"https://www.trickscity.com/wp-content/uploads/2018/02/cute-girl-profile-pics.jpg");
-        recentChatMsgs.add(0,"Nandan Desai: Hi");
-        noOfUnreadMsgs.add(0,1);
-
-        chatListAdapter.notifyItemInserted(0);
-        recyclerView.scrollToPosition(0);
-    }
-*/
     private void initRecyclerView(View view){
         Context context=getContext();
         recyclerView=view.findViewById(R.id.chatList);

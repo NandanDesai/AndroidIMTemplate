@@ -25,9 +25,6 @@ public class ChatListRepository {
         chats= chatSessionDao.getAllChats();
     }
 
-    public LiveData<List<ChatSession>> getChats() {
-        return chats;
-    }
 
     public LiveData<Integer> getNumberOfUnreadMsgs(String chatId){
         return chatMessageDao.getNumberOfUnreadMsgs(chatId);
@@ -52,14 +49,5 @@ public class ChatListRepository {
 
     public LiveData<ChatSession> getChatSession(String chatId){
         return chatSessionDao.getChatSession(chatId);
-    }
-
-    public void deleteChat(final String chatId){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                chatSessionDao.delete(chatId);
-            }
-        }).start();
     }
 }

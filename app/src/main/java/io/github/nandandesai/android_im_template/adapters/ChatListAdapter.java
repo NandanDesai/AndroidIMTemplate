@@ -44,7 +44,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     private ActionMode actionMode;
     private AppCompatActivity activity;
 
-    //testing this variable for mulitple select and delete in ActionMode contextual menu. It's not completely implemented yet.
+    //testing this variable for mulitple select and delete in ActionMode contextual menu (the menu that appears
+    //on the top-left side of the Action Bar when you long press on a chat list item).
+    //It's not completely implemented yet.
     private HashMap<String, RelativeLayout> chatIdsSelectedInActionMode=new HashMap<>();
 
     public ChatListAdapter(Context context, LifecycleOwner lifecycleOwner, List<DataHolder> dataHolders, AppCompatActivity activity) {

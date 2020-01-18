@@ -31,28 +31,6 @@ public class ContactRepository {
         }).start();
     }
 
-    public void update(final Contact contact){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                contactDao.update(contact);
-            }
-        }).start();
-    }
-
-    public LiveData<Contact> getContact(String id){
-       return contactDao.getContact(id);
-    }
-
-    public void delete(final String id){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                contactDao.delete(id);
-            }
-        }).start();
-    }
-
     public LiveData<List<Contact>> getContacts() {
         return contacts;
     }

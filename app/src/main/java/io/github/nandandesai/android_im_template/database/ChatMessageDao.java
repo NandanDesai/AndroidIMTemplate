@@ -32,6 +32,8 @@ public interface ChatMessageDao {
 
     //fromStatus and toStatus means you can change the status in the database from a particular value to another value
     //like updating from a USER_NOT_READ to USER_READ
+    //If there are multiple unread messages for a particular chatID, then this method can be called for changing
+    //unread to read.
     @Query("UPDATE ChatMessage SET messageStatus=:toStatus WHERE messageStatus=:fromStatus AND chatId=:chatId")
     void updateMessageStatusWithChatId(String chatId, String fromStatus, String toStatus);
 

@@ -96,8 +96,6 @@ public class ChatActivity extends AppCompatActivity {
                     Log.d(TAG, "onClick: " + messageInput.getText());
                     String messageFrom = "me";
                     String messageTo = chatId;
-                    //sending the message to myself for testing
-                    //String messageTo=preferences.getMyOnionAddress();
                     String messageStatus = ChatMessage.STATUS.WAITING_TO_SEND;
                     long messageTime = System.currentTimeMillis();
                     String messageType = ChatMessage.TYPE.TEXT;
@@ -149,33 +147,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setupLiveDataObservers(final TextView chatNameView, final CircleImageView toolbarProfileImageView) {
 
-
-        /*
-        * TODO: When I save the contact from CreateContactActivity, then in ContactRepository, even the chatSession table will be updated.
-                So, I should just use whatever name is present in ChatSession table right? Whats the use of the below getContact observer code?
-                I can simplify this.
-        */
-        /*
-        chatActivityViewModel.getContact(chatId).observe(this, new Observer<Contact>() {
-            @Override
-            public void onChanged(@Nullable Contact contact) {
-                if (contact == null) {
-                    Log.d(TAG, "onChanged: contact doesn't exists. So, trying to get info from ChatSession table");
-                    contactExists = false;
-                    return;
-                }
-                contactExists = true;
-                Log.d(TAG, "onChanged: contact exists! Setting info on toolbar from Contact table");
-                chatNameView.setText(contact.getName());
-                Glide.with(ChatActivity.this)
-                        .asBitmap()
-                        .load(contact.getProfilePic())
-                        .into(toolbarProfileImageView);
-            }
-        });
-        */
-
-        //the below code is temporary to some extent.
         //if the contact doesn't exists, then it is probably a group chat or it is a chat with an unsaved contact.
         //so we'll try to check if the contact exists or not. If it doesn't then we'll get the data from ChatSession
         //and then use it to set the Toolbar info.
@@ -198,7 +169,7 @@ public class ChatActivity extends AppCompatActivity {
                             .load(chatSession.getIcon())
                             .into(toolbarProfileImageView);
                     //You should also add an "Online" status to the ChatSession and use it here. Using LiveData here is useful to
-                    //dynamically update
+                    //dynamically update "Online" status
 
                 }
 
@@ -209,14 +180,10 @@ public class ChatActivity extends AppCompatActivity {
         chatActivityViewModel.getChatMessagesLiveData(chatId).observe(this, new Observer<List<ChatMessage>>() {
             @Override
             public void onChanged(@Nullable List<ChatMessage> chatMessages) {
-
-                ///////the below code is temporary.
-                /////////////////////////////////
-                ///////////////////////////////////
                 if (chatMessages != null) {
                     //here, I'm updating all the not_read messages to read. But, in actual case
-                    //I need to send a response to the sender that I have read the message.
-                    //figure out what you need to do in such case later.
+                    //I need to send a response to the sender that I have read the message and then update
+                    //it in my local database.
                     chatActivityViewModel.updateMessageStatusWithChatId(chatId, ChatMessage.STATUS.USER_NOT_READ, ChatMessage.STATUS.USER_READ);
                     chatMessageAdapter.setChatMessages(chatMessages);
                     chatMessagesRecyclerView.scrollToPosition(chatMessagesRecyclerView.getAdapter().getItemCount()-1);
@@ -224,75 +191,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
-        /*
-        * The below code adds the newly entered chatMessage to the list of chatmessages in adapter on by one as opposed
-        * to replacing the entire list of messages as done in the above commented code.
-        * */
-
-        /*here, I was facing a problem of where, when I open this activity, the last element of the ChatMessages array was getting
-        * added twice. That was because, after I first set the ChatMessage array in the Adapter, the below code would also trigger
-        * which then would add the last element separately again. Hence, the last element was getting repeated when I first open the Activity.
-        * To avoid that, here I added firstTime variable to check if the activity is being opened for the first time or is it already open and running.
-        * If it's the firstTime, then don't add the last ("recent") ChatMessage in the Adapter. Otherwise, add it. That's the logic behind this.
-        * It's not too good of an approach but it works.*/
-
-        /*
-        //UPDATE: Duplicate entries are being added to Recycler view because of the below code.
-
-        final boolean[] firstTime = {true};
-        chatActivityViewModel.getRecentChatMessage(chatId).observe(this, new Observer<ChatMessage>() {
-            @Override
-            public void onChanged(@Nullable ChatMessage chatMessage) {
-
-                ///////the below code is temporary.
-                /////////////////////////////////
-                ///////////////////////////////////
-                if (chatMessage != null && !firstTime[0]) {
-                    //here, I'm updating all the not_read messages to read. But, in actual case
-                    //I need to send a response to the sender that I have read the message.
-                    //figure out what you need to do in such case later.
-                    chatActivityViewModel.updateMessageStatusWithChatId(chatId, ChatMessage.STATUS.USER_NOT_READ, ChatMessage.STATUS.USER_READ);
-                    Log.d(TAG, "onChanged: adding the message \""+chatMessage.getMessageContent()+"\" to the Recycler view");
-                    chatMessageAdapter.addChatMessage(chatMessage);
-                    chatMessagesRecyclerView.scrollToPosition(chatMessagesRecyclerView.getAdapter().getItemCount()-1);
-                }
-                firstTime[0] =false;
-            }
-        });
-        */
-
-    }
-
-    private static class SetupChatListViewTask extends AsyncTask<Void, Void, Void>{
-
-        private RecyclerView chatMessagesRecyclerView;
-        private ChatActivityViewModel chatActivityViewModel;
-        private ChatMessageAdapter chatMessageAdapter;
-        private List<ChatMessage> chatMessages;
-        private String chatId;
-
-        public SetupChatListViewTask(RecyclerView chatMessagesRecyclerView, ChatActivityViewModel chatActivityViewModel, ChatMessageAdapter chatMessageAdapter, String chatId) {
-            this.chatMessagesRecyclerView = chatMessagesRecyclerView;
-            this.chatActivityViewModel = chatActivityViewModel;
-            this.chatMessageAdapter = chatMessageAdapter;
-            this.chatId = chatId;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Log.d(TAG, "doInBackground: fetching the list of chatMessages.");
-            chatMessages=chatActivityViewModel.getChatMessages(chatId);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Log.d(TAG, "onPostExecute: setting the chatMessagesAdapter with the fetched list of chatMessages");
-            //chatMessages.remove(chatMessages.size()-1); //remove the last element because that will be added separately later using LiveData observer.
-            chatMessageAdapter.setChatMessages(chatMessages);
-            chatMessagesRecyclerView.scrollToPosition(chatMessagesRecyclerView.getAdapter().getItemCount()-1);
-        }
     }
 
 }

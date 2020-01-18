@@ -65,32 +65,11 @@ public class ChatMessageRepository {
         return chatMessageDao.getAllChatMessagesLiveData(chatId);
     }
 
-    public LiveData<List<ChatMessage>> getAllUnreadMsgs(String chatId) {
-        return chatMessageDao.getAllUnreadMsgs(chatId);
-    }
-
-    public LiveData<List<ChatMessage>> getAllUnsentMsgs() {
-        return chatMessageDao.getAllUnsentMsgs();
-    }
-
-    public LiveData<ChatMessage> getRecentMsg(String chatId){
-        return chatMessageDao.getRecentMsg(chatId);
-    }
-
     public void updateMessageStatusWithChatId(final String chatId, final String fromStatus, final String toStatus) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 chatMessageDao.updateMessageStatusWithChatId(chatId, fromStatus, toStatus);
-            }
-        }).start();
-    }
-
-    public void updateMessageStatusWithMessageId(final String messageId, final String status) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                chatMessageDao.updateMessageStatusWithMessageId(messageId, status);
             }
         }).start();
     }

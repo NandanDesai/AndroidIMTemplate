@@ -13,15 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver
-            android:name="io.github.nandandesai.android_im_template.services.PeerLinkRestartReceiver"
-            android:enabled="true"
-            android:exported="true" />
-
-        <service
-            android:name="io.github.nandandesai.android_im_template.services.PeerLinkMainService"
-            android:enabled="true" />
-
         <activity android:name="io.github.nandandesai.android_im_template.ProfileViewActivity" />
         <activity android:name="io.github.nandandesai.android_im_template.CreateContactActivity" />
         <activity

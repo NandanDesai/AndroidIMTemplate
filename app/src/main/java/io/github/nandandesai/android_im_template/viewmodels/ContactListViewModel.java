@@ -20,10 +20,6 @@ public class ContactListViewModel  extends AndroidViewModel {
         contacts=contactRepository.getContacts();
     }
 
-    public ContactRepository getContactRepository() {
-        return contactRepository;
-    }
-
     public LiveData<List<Contact>> getContacts() {
         return contacts;
     }

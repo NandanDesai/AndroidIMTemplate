@@ -1,27 +1,21 @@
 package io.github.nandandesai.android_im_template;
 
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.Intent;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 
 import io.github.nandandesai.android_im_template.adapters.TabLayoutPagerAdapter;
-import io.github.nandandesai.android_im_template.services.PeerLinkMainService;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Intent peerLinkServiceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +37,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_chat_white_24dp);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_contacts_white_24dp);
 
-        peerLinkServiceIntent=new Intent(this, PeerLinkMainService.class);
-        if(!isMyServiceRunning(PeerLinkMainService.class)){
-            Log.d(TAG, "onCreate: starting the background service");
-            startService(peerLinkServiceIntent);
-        }
-
     }
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy: stopping the service");
-        stopService(peerLinkServiceIntent);
         super.onDestroy();
     }
 
@@ -74,21 +60,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    //this method needs code to detect that the ActivityResult is coming from Orbot.
-
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.d(TAG, "isMyServiceRunning: true");
-                return true;
-            }
-        }
-        Log.d(TAG, "isMyServiceRunning: false");
-        return false;
-    }
-
 
 }

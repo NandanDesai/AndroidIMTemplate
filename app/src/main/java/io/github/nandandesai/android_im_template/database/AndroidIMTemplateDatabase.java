@@ -13,12 +13,6 @@ import android.util.Log;
 import com.commonsware.cwac.saferoom.SafeHelperFactory;
 
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-
 import io.github.nandandesai.android_im_template.models.ChatSession;
 import io.github.nandandesai.android_im_template.models.ChatMessage;
 import io.github.nandandesai.android_im_template.models.Contact;
@@ -35,19 +29,13 @@ public abstract class AndroidIMTemplateDatabase extends RoomDatabase {
     public static synchronized AndroidIMTemplateDatabase getInstance(Context context){
 
         if(instance==null) {
-            try {
-                KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
 
-                SecureRandom secureRandom = new SecureRandom();
-                int keyBitSize = 256;
-                keyGenerator.init(keyBitSize, secureRandom);
-
-                SecretKey secretKey = keyGenerator.generateKey();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-
-
+            /*
+            *
+            * Here the passphrase is being hardcoded. This should not be done. It is your responsibility to generate
+            * random Secret Key as mentioned in the README file.
+            *
+            * */
             String passPhrase="templateSecret";
 
             SafeHelperFactory factory = new SafeHelperFactory(passPhrase.toCharArray());
@@ -71,7 +59,8 @@ public abstract class AndroidIMTemplateDatabase extends RoomDatabase {
     };
 
 
-    //this class will initialize database with some sample rows
+    //this class will initialize database with some sample rows. This will be executed when the app is run for the first time.
+    //this class can be removed if you want.
     private static class InitializeDb extends AsyncTask<Void, Void, Void>{
         private ContactDao contactDao;
         private ChatSessionDao chatSessionDao;
