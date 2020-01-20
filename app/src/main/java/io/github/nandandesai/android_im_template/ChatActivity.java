@@ -2,7 +2,6 @@ package io.github.nandandesai.android_im_template;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,9 +43,6 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView chatMessagesRecyclerView;
     private EmojiPopup emojiPopup;
 
-    private boolean contactExists = true;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +68,6 @@ public class ChatActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
         chatMessagesRecyclerView.setLayoutManager(linearLayoutManager);
-
-
-
-
-        //new SetupChatListViewTask(chatMessagesRecyclerView, chatActivityViewModel, chatMessageAdapter, chatId).execute();
-
 
         emojiButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +137,13 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setupLiveDataObservers(final TextView chatNameView, final CircleImageView toolbarProfileImageView) {
 
+
+        /*
+        * The below code is not complete. First you need to write your own logic to check if the Contact
+        * of the recipient is saved or not. Modify the code as per your requirement.
+        *
+        * */
+
         //if the contact doesn't exists, then it is probably a group chat or it is a chat with an unsaved contact.
         //so we'll try to check if the contact exists or not. If it doesn't then we'll get the data from ChatSession
         //and then use it to set the Toolbar info.
@@ -155,9 +152,8 @@ public class ChatActivity extends AppCompatActivity {
             public void onChanged(@Nullable ChatSession chatSession) {
 
                     if (chatSession == null) {
-                        //if contact doesn't exists and chatSession is null
-                        //I think this case won't happen.
-                        //maybe in the future when all the Signal stuff is done, it will happen. But not now.
+                        //if contact doesn't exists (for which I have not written a logic and left it for you to do it)
+                        //and chatSession is null, then just set the chatID (like a phone number or something) as the chatNameView
                         Log.d(TAG, "onChanged: ChatSession doesn't exists on chatId: " + chatId);
                         chatNameView.setText(chatId);
                         return;
