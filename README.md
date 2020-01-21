@@ -33,7 +33,7 @@ Apart from the core architectural components like Room and Lifecycle components,
  - SQLCipher for encrypted database
  - [SafeRoom](https://github.com/commonsguy/cwac-saferoom) for combining Room Persistence Library with SQLCipher
 
-Here is Google's [recommended way](https://developer.android.com/jetpack/docs/guide#recommended-app-arch) of building the app's architecture (i.e., MVVM). It is depicted the the diagram below: 
+Here is Google's [recommended way](https://developer.android.com/jetpack/docs/guide#recommended-app-arch) of building the app's architecture (i.e., MVVM). It is depicted in the diagram below: 
 ![Diagram taken from google's official android docs](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 
 In this github repo, you can see the packages namely *model*, *repositories*, *viewmodel* which are to adhere with the above architecture. Apart from these, there are also packages like *adapters* (which contain the Adapter classes for RecyclerView and TabLayout) and *database* (which contain the DAOs (Data Access Objects)).
@@ -51,5 +51,26 @@ ChatActivity is shown below:
 
 ChatActivity and ChatListFragment are comparatively harder to design as they contain a lot of moving parts. In this repo, you can refer ChatActivity.java and ChatListFragment.java files and their related xml files for designing the UI of your app. I'm not mentioning other Activities and Fragments used in this repo because you can build those according to your own requirements. 
 
-### Network Architecture and Protocols
+## Choosing a communication protocol
+The communication protocol that you choose for your app depends the network architecture you want to adopt. There are 3 types of network architectures you can adopt while building your Instant Messaging app:
+
+ 1. Centralized
+ 2. Decentralized
+ 3. Peer-to-Peer
+
+
+### Centralized architecture
+This is a client-server architecture where a central authority is in control of the server. Apps that are based on centralized architecture are WhatsApp, Telegram etc. [XMPP](https://xmpp.org/about/) is a popular communication protocol for instant messaging that supports centralized architecture.
+
+### Decentralized architecture
+This is also a client-server architecture but there is no central authority in control. That means, you can have multiple servers controlled by multiple entities. Anyone will be able to setup a server in this architecture. Apps that are based on decentralized architecture are [Xabber](https://www.xabber.com/). 
+XMPP can be used for both centralized as well as decentralized architecture. [Matrix](https://www.matrix.org/) is another upcoming decentralized communication protocol.
+
+### Peer-to-Peer architecture
+In this architecture, there is no server at all. Clients (here known as Peers) talk to each other directly. Instant messaging communication protocols that are based on peer-to-peer architecture are [Tox](https://tox.chat/) and [Ricochet](https://ricochet.im/).
+
+##### XMPP
+If you want to adopt a centralized or decentralized architecture, then XMPP is highly recommended. XMPP has become an industry standard for instant messaging applications. [Smack](https://github.com/igniterealtime/Smack) is an XMPP client library for Java/Android. Check out it's tutorial [here](https://www.baeldung.com/xmpp-smack-chat-client). For XMPP server, there are several implementations of that too! I would recommend checking out [Openfire](https://www.igniterealtime.org/projects/openfire/).
+
+## Security considerations
 ...
