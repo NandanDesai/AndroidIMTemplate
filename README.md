@@ -1,4 +1,5 @@
-# A Brief Guide for building an Instant Messaging app for Android
+
+# A brief guide on building an Instant Messaging app for Android
 
 ## Prerequisite
 You need to know the basics of Android app development (like what are Activities, Services etc.)
@@ -48,7 +49,7 @@ ChatActivity is shown below:
 
 ![chatactivity image](https://raw.githubusercontent.com/NandanDesai/res/master/chatactivity.png)
 
-ChatActivity and ChatListFragment are comparatively harder to design as they contain a lot of moving parts. You can refer those ChatActivity.java and ChatListFragment.java and their related xml files for designing the UI of your app. I'm not mentioning other Activities and Fragments used in this repo because you can build those according to your own requirements. 
+ChatActivity and ChatListFragment are comparatively harder to design as they contain a lot of moving parts. In this repo, you can refer ChatActivity.java and ChatListFragment.java files and their related xml files for designing the UI of your app. I'm not mentioning other Activities and Fragments used in this repo because you can build those according to your own requirements. 
 
 ### Network Architecture and Protocols
 ...
