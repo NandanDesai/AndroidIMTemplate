@@ -82,6 +82,7 @@ Although not recommended, you can still choose to implement your own communicati
 The most important aspect of any instant messaging app is to be secure and respect user's privacy. Getting the cryptography right is extremely difficult and hence you need to follow certain standard procedures and security protocols and not attempt to make your own security protocol.
 
 **#1 E2E encryption**
+
 Nowadays, every instant messaging app needs to have E2E encryption. The protocol that has become an industry standard for E2E encryption in instant messaging apps is ***Signal Protocol***. WhatsApp also uses Signal Protocol for E2E encryption. In order to use this protocol in your app, you need to know how the protocol works. That's very important. 
 
 Signal Protocol was earlier known as TextSecure protocol. Here are some resources that will be helpful to you in understanding how the protocol works:
@@ -95,4 +96,24 @@ You can go through the above links in that given order.
 If you are going to use XMPP protocol, then can switch to [OMEMO](https://en.wikipedia.org/wiki/OMEMO) protocol which is an extension of XMPP protocol and uses Signal Protocol for E2E encryption. [Smack library supports OMEMO](https://github.com/igniterealtime/Smack/blob/master/documentation/extensions/omemo.md).  Openfire XMPP server also has OMEMO support.
 
 **#2 Database encryption**
-...
+
+E2E encryption takes care of encrypting the message when it's in transit from point A to point B over the network. Once the message reaches point B, it will be decrypted back to plain text. Storing the message in plain text on point B's device defeats the whole purpose of using E2E encryption if someone can just steal the device directly and read the message. That is why we need to use an encrypted local database to store messages on the client's device. 
+
+As mentioned earlier in this guide, we need to use SQLCipher encrypted database to store our messages. We will obviously need a key to encrypt/decrypt our database. In this repo, I've hardcoded the key as you can see [here](https://github.com/NandanDesai/AndroidIMTemplate/blob/1e2a7f7ed9b21de453142182a4d32c31842c93b2/app/src/main/java/io/github/nandandesai/android_im_template/database/AndroidIMTemplateDatabase.java#L33). This should never be done as anyone can easily decompile your APK file and read the key. So, we need to generate the key randomly and dynamically and store that key somewhere safe on the device.
+
+For generating and storing the key, you can use [Android keystore system](https://developer.android.com/training/articles/keystore). Following resources can be helpful to understand how to use Android keystore:
+
+ - [A talk by Frederik Schweiger on YouTube](https://www.youtube.com/watch?v=UIyfKBf-ais)
+ - [Refer how Signal's Android app is doing this](https://github.com/signalapp/Signal-Android/blob/master/app/src/main/java/org/thoughtcrime/securesms/crypto/KeyStoreHelper.java)
+
+## Conclusion
+This guide barely scratched the surface but gave you a good start! Instant messaging apps now have features like Voice calls, Video calls etc. and facilitate the flow of billions of messages per minute! Building that kind of infrastructure is hard. But the journey to get there involves a lot of learning! And that is what makes building projects like this more exciting!
+
+## License
+Copyright 2020 Nandan Desai
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
